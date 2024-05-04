@@ -1,0 +1,43 @@
+-- Column without array
+
+-- Step 1: Create a new column with the integer data type.
+ALTER TABLE chatbotcourses
+ADD COLUMN new_column_name INTEGER;
+
+-- Step 2: Convert the existing text column to integer and insert the values into the new column.
+UPDATE chatbotcourses
+SET new_column_name = CASE 
+                        WHEN chatbotproducts_id = 'nan' THEN NULL -- or any default value you prefer
+                        ELSE ROUND(chatbotproducts_id::NUMERIC)::INTEGER
+                     END;
+
+-- Step 3: Drop the existing text column.
+ALTER TABLE chatbotcourses
+DROP COLUMN chatbotproducts_id;
+
+-- Step 4: Rename the new column to your desired name.
+ALTER TABLE chatbotcourses
+RENAME COLUMN new_column_name TO chatbotproducts_id;
+
+
+-- Column with Array
+
+-- Step 1: Create a new column with the integer array data type.
+ALTER TABLE chatbotblog
+ADD COLUMN new_column_name INTEGER[];
+
+-- Step 2: Update the new column by converting the text values to integer arrays.
+UPDATE chatbotblog
+SET new_column_name = CASE 
+                        WHEN chatbotcourses_id = '[]' THEN '{}'::INTEGER[]
+                        ELSE ARRAY(SELECT CAST(val AS INTEGER)
+                                   FROM unnest(string_to_array(regexp_replace(chatbotcourses_id, '^\[|\]$', '', 'g'), ',')) val)
+                     END;
+
+-- Step 3: Drop the existing text column.
+ALTER TABLE chatbotblog
+DROP COLUMN chatbotcourses_id;
+
+-- Step 4: Rename the new column to your desired name.
+ALTER TABLE chatbotblog
+RENAME COLUMN new_column_name TO chatbotcourses_id;

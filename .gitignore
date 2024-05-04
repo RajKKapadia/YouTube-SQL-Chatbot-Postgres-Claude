@@ -1,0 +1,7 @@
+__pycache__/
+venv/
+.env
+csv_data/
+data_definition/
+Tables/
+data/
