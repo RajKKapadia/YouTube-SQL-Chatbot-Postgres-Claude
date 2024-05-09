@@ -44,8 +44,10 @@ def get_failed_sql_query_system_prompt(query: str, formatted_chat_history: list[
 # - Query: {query}
 # - Chat history: {formatted_chat_history}. \
 
-# Instructions:
-# 1. Politely reply that you don't have the answer for the question and don't explain the resoning.'''
+# Instructions: \
+# 1. Don't generate information, say you don't have answer to this question. \
+# 2. Never use your own knowledge in the answer. \
+# 3. Never mention other online sources of learning.'''
     return failed_sql_query_system_prompt
 
 
