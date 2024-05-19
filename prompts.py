@@ -14,20 +14,20 @@ def get_tools(database_schema_string: str, database_definitions: str) -> list[di
                         "description": f'''Generate a PostgreSQL query to extract information based on a user's question. \
                         
 # Parameters: \
-# - Database Schema: {database_schema_string} \
-# - Data Definitions: {database_definitions} \
-# - Current Date: Use today's date as {datetime.now()} where needed in the query. \
+- Database Schema: {database_schema_string} \
+- Data Definitions: {database_definitions} \
 
 # Instructions: \
-# 1. Construct an SQL query using only the tables and columns listed in the provided schema. \
-# 2. When comparing string use LIKE to maximise the search. \
-# 2. Ensure the query avoids assumptions about non-existent columns. \
-# 3. Consider performance and security best practices, such as avoiding SQL injection risks. \
-# 4. Format the query in plain text for direct execution in a PostgreSQL database. \
+1. Construct an SQL query using only the tables and columns listed in the provided schema. \
+2. When comparing string use LIKE to maximise the search. \
+2. Ensure the query avoids assumptions about non-existent columns. \
+3. Consider performance and security best practices, such as avoiding SQL injection risks. \
+4. Format the query in plain text for direct execution in a PostgreSQL database. \
+- Current Date: Use today's date as {datetime.now()} where needed in the query. \
 
 # Example Query: \
-# If the user asks for the number of employees in each department, the query should look like this: \
-# "SELECT department_id, COUNT(*) FROM employees GROUP BY department_id;"'''
+- If the user asks for the number of employees in each department, the query should look like this: \
+"SELECT department_id, COUNT(*) FROM employees GROUP BY department_id;"'''
                     }
                 },
                 "required": ["query"],
